@@ -1,0 +1,585 @@
+{
+  "version": 19,
+  "labelsNote": "Translations of tab labels for apps without readable view ids (YouTube's bottom bar, TikTok, Facebook). English is verified on the device; other languages are best-effort and get fixed through rule updates. Order: en, el, es, de, fr, it, pt, nl, pl, tr, ru, uk, ro, ar, id, vi, ja, ko.",
+  "labels": {
+    "yt_home": ["Home", "Αρχική", "Inicio", "Startseite", "Accueil", "Início", "Strona główna", "Ana Sayfa", "Главная", "Головна", "Pagina principală", "الصفحة الرئيسية", "Beranda", "Trang chủ", "ホーム", "홈"],
+    "yt_shorts": ["Shorts", "ショート", "쇼츠"],
+    "tt_home": ["Home", "Αρχική", "Inicio", "Startseite", "Accueil", "Início", "Strona główna", "Ana Sayfa", "Главная", "Головна", "Acasă", "الرئيسية", "Beranda", "Trang chủ", "ホーム", "홈"],
+    "tt_friends": ["Friends", "Φίλοι", "Amigos", "Freunde", "Amis", "Amici", "Vrienden", "Znajomi", "Arkadaşlar", "Друзья", "Друзі", "Prieteni", "الأصدقاء", "Teman", "Bạn bè", "友達", "친구"],
+    "tt_inbox": ["Inbox", "Εισερχόμενα", "Bandeja de entrada", "Posteingang", "Boîte de réception", "Posta in arrivo", "Caixa de entrada", "Skrzynka odbiorcza", "Gelen Kutusu", "Входящие", "Вхідні", "Mesaje primite", "البريد الوارد", "Kotak Masuk", "Hộp thư", "受信トレイ", "받은 편지함"],
+    "tt_profile": ["Profile", "Προφίλ", "Perfil", "Profil", "Profilo", "Profiel", "Профиль", "Профіль", "الملف الشخصي", "Hồ sơ", "プロフィール", "프로필"],
+    "tt_phone": ["Phone", "Τηλέφωνο", "Teléfono", "Telefon", "Téléphone", "Telefono", "Telefone", "Telefoon", "Телефон", "الهاتف", "Telepon", "Điện thoại", "電話", "전화"],
+    "tt_more": ["More", "Περισσότερα", "Más", "Mehr", "Plus", "Altro", "Mais", "Meer", "Więcej", "Daha fazla", "Ещё", "Більше", "Mai mult", "المزيد", "Lainnya", "Thêm", "その他", "더보기"],
+    "fb_reels_tab": ["Reels, tab", "Reels, καρτέλα", "Reels, pestaña", "Reels, Tab", "Reels, onglet", "Reels, scheda", "Reels, guia", "Reels, tabblad", "Reels, karta", "Reels, sekme", "Reels, вкладка", "Reels, filă", "Reels, tab", "Reels, タブ", "Reels, 탭"],
+    "fb_home_tab": ["Home, tab", "Αρχική, καρτέλα", "Inicio, pestaña", "Startseite, Tab", "Accueil, onglet", "Home, scheda", "Página inicial, guia", "Start, tabblad", "Strona główna, karta", "Ana Sayfa, sekme", "Главная, вкладка", "Головна, вкладка", "Pagina principală, filă", "Beranda, tab", "Trang chủ, tab", "ホーム, タブ", "홈, 탭"],
+    "fb_save": ["Save,", "Αποθήκευση,", "Guardar,", "Speichern,", "Enregistrer,", "Salva,", "Salvar,", "Opslaan,", "Zapisz,", "Kaydet,", "Сохранить,", "Зберегти,", "Salvează,", "Simpan,", "Lưu,", "保存,", "저장,"]
+  },
+  "apps": {
+    "com.instagram.android": {
+      "label": "Instagram",
+      "note": "Verified on Instagram 456.0.0.14.78 (2026-11-17). Bottom tabs live in one swipeable ViewPager: Home | Reels | Messages | Search | Profile. The Reels page stays loaded off-screen and slides past when moving between Home and Messages, hence confirmMs.",
+      "screens": {
+        "ig_dm_thread": {
+          "note": "Thread composer id is UNVERIFIED; the inbox action bar is verified.",
+          "anyOf": [
+            {
+              "viewId": "com.instagram.android:id/row_thread_composer_edittext"
+            },
+            {
+              "viewId": "com.instagram.android:id/direct_inbox_action_bar"
+            },
+            {
+              "viewId": "com.instagram.android:id/direct_tab",
+              "selected": true
+            }
+          ]
+        },
+        "ig_home_feed": {
+          "viewId": "com.instagram.android:id/feed_tab",
+          "selected": true
+        },
+        "ig_other_tab": {
+          "note": "Recorded so that Messages -> Search -> reel no longer counts as 'from a DM'.",
+          "anyOf": [
+            {
+              "viewId": "com.instagram.android:id/search_tab",
+              "selected": true
+            },
+            {
+              "viewId": "com.instagram.android:id/profile_tab",
+              "selected": true
+            }
+          ]
+        }
+      },
+      "rules": [
+        {
+          "id": "ig_reels_tab",
+          "feature": "ig_block_reels",
+          "note": "Backup for the cover below: catches swiping the tab pager from Home into Reels.",
+          "match": {
+            "viewId": "com.instagram.android:id/clips_tab",
+            "selected": true
+          },
+          "confirmMs": 400,
+          "action": {
+            "type": "clickNode",
+            "target": {
+              "viewId": "com.instagram.android:id/feed_tab"
+            },
+            "fallback": "back"
+          }
+        },
+        {
+          "id": "ig_reels_viewer",
+          "feature": "ig_block_reels",
+          "note": "Reel viewer on screen while the Reels tab is not selected: opened from Explore (grid or search), a profile, the feed or a DM.",
+          "match": {
+            "anyOf": [
+              {
+                "viewId": "com.instagram.android:id/clips_viewer_view_pager"
+              },
+              {
+                "viewId": "com.instagram.android:id/clips_viewer_container"
+              }
+            ]
+          },
+          "confirmMs": 400,
+          "allowIf": [
+            {
+              "setting": "ig_allow_dm_reels",
+              "cameFrom": "ig_dm_thread",
+              "revokeOnScrollOf": "com.instagram.android:id/clips_viewer_view_pager",
+              "withinMs": 600000
+            },
+            {
+              "setting": "ig_allow_feed_reels",
+              "cameFrom": "ig_home_feed",
+              "revokeOnScrollOf": "com.instagram.android:id/clips_viewer_view_pager",
+              "withinMs": 600000
+            }
+          ],
+          "action": {
+            "type": "back"
+          }
+        }
+      ],
+      "covers": [
+        {
+          "id": "ig_reels_button",
+          "feature": "ig_block_reels",
+          "note": "Whole Reels tab blocks touches; the visible tile is drawn only over the tab's icon so it matches the other icons.",
+          "target": {
+            "viewId": "com.instagram.android:id/clips_tab"
+          },
+          "label": "⊘",
+          "hideWhileSliding": false,
+          "visual": {
+            "viewId": "com.instagram.android:id/tab_icon"
+          },
+          "visualScale": 1.25
+        },
+        {
+          "id": "ig_explore_grid",
+          "feature": "ig_hide_explore_grid",
+          "note": "Grey cover over the Explore grid only. Shown while the Search tab is selected and grid tiles exist (search results have none). Starts below the search bar when it is visible; Instagram slides that bar away while scrolling.",
+          "match": {
+            "allOf": [
+              {
+                "viewId": "com.instagram.android:id/search_tab",
+                "selected": true
+              },
+              {
+                "viewId": "com.instagram.android:id/grid_card_layout_container"
+              }
+            ]
+          },
+          "target": {
+            "viewId": "com.instagram.android:id/layout_recyclerview_parent_container"
+          },
+          "label": "Explore feed hidden",
+          "below": {
+            "viewId": "com.instagram.android:id/explore_action_bar"
+          },
+          "color": "#FF8E8E93",
+          "hideWhileSliding": true
+        }
+      ],
+      "pagers": [
+        "com.instagram.android:id/swipeable_tab_view_pager",
+        "com.instagram.android:id/swipeable_nav_view_pager_inner_recycler_view"
+      ],
+      "scrollSources": [
+        "android:id/list",
+        "com.instagram.android:id/recycler_view",
+        "com.instagram.android:id/clips_viewer_view_pager"
+      ]
+    },
+    "com.google.android.youtube": {
+      "label": "YouTube",
+      "note": "Verified 2026-11-17 on the user's phone. Bottom bar (pivot_bar) buttons have no ids; they're found by content description + class. Normal videos (watch_while) are never matched.",
+      "rules": [
+        {
+          "id": "yt_shorts_tab",
+          "feature": "yt_block_shorts",
+          "note": "Shorts tab selected in the bottom bar.",
+          "match": {
+            "contentDesc": "@yt_shorts",
+            "className": "Button",
+            "selected": true
+          },
+          "confirmMs": 400,
+          "action": {
+            "type": "clickNode",
+            "target": {
+              "contentDesc": "@yt_home",
+              "className": "Button"
+            },
+            "fallback": "back"
+          }
+        },
+        {
+          "id": "yt_shorts_player",
+          "feature": "yt_block_shorts",
+          "note": "Shorts player opened from the Home shelf, search, a channel or a link.",
+          "match": {
+            "anyOf": [
+              {
+                "viewId": "com.google.android.youtube:id/reel_watch_fragment_root"
+              },
+              {
+                "viewId": "com.google.android.youtube:id/reel_recycler"
+              },
+              {
+                "viewId": "com.google.android.youtube:id/reel_player_page_container"
+              }
+            ]
+          },
+          "confirmMs": 400,
+          "action": {
+            "type": "back"
+          }
+        }
+      ],
+      "covers": [
+        {
+          "id": "yt_shorts_button",
+          "feature": "yt_block_shorts",
+          "note": "Touch-blocking tile over the Shorts button; drawn icon-sized over its image.",
+          "target": {
+            "contentDesc": "@yt_shorts",
+            "className": "Button"
+          },
+          "visual": {
+            "viewId": "com.google.android.youtube:id/image"
+          },
+          "visualScale": 1.25,
+          "label": "⊘"
+        }
+      ],
+      "scrollSources": [
+        "com.google.android.youtube:id/results",
+        "com.google.android.youtube:id/reel_recycler"
+      ]
+    },
+    "com.zhiliaoapp.musically": {
+      "label": "TikTok",
+      "note": "TikTok obfuscates most ids; 'viewpager' (the vertical feed) is one of the few readable, stable ones. Verified on com.zhiliaoapp.musically 2026-11-17; trill shares the codebase (unverified). DMs/inbox have no feed pager, so they stay usable. Since 47.x the main tab container (obfuscated class) is also id 'viewpager' on every tab, so the feed rule also requires className ViewPager (androidx.viewpager.widget.ViewPager; verified 47.9.3, 2026-11-22).",
+      "rules": [
+        {
+          "id": "tt_feed",
+          "feature": "tt_block_feed",
+          "note": "Feed blocked: switch to Inbox (fallback: back, e.g. from a DM video back to the chat). A video opened from a chat is allowed until you swipe to the next one.",
+          "match": {
+            "viewId": "com.zhiliaoapp.musically:id/viewpager",
+            "className": "ViewPager"
+          },
+          "confirmMs": 300,
+          "action": {
+            "type": "clickNode",
+            "target": {
+              "contentDesc": "@tt_inbox",
+              "className": "FrameLayout"
+            },
+            "fallback": "back"
+          },
+          "allowIf": [
+            {
+              "setting": "tt_allow_dm_videos",
+              "cameFrom": "tt_dm_chat",
+              "revokeOnScrollOf": "com.zhiliaoapp.musically:id/viewpager",
+              "withinMs": 600000
+            },
+            {
+              "setting": "tt_allow_profile_videos",
+              "cameFrom": "tt_profile",
+              "revokeOnScrollOf": "com.zhiliaoapp.musically:id/viewpager",
+              "withinMs": 600000
+            }
+          ]
+        }
+      ],
+      "scrollSources": [
+        "com.zhiliaoapp.musically:id/viewpager"
+      ],
+      "covers": [
+        {
+          "id": "tt_home_tab",
+          "feature": "tt_block_feed",
+          "note": "Tile over the Home (For You) tab icon.",
+          "target": {
+            "contentDesc": "@tt_home",
+            "className": "FrameLayout"
+          },
+          "visual": {
+            "className": "ImageView"
+          },
+          "label": "⊘"
+        },
+        {
+          "id": "tt_friends_tab",
+          "feature": "tt_block_feed",
+          "note": "Friends is also a video feed.",
+          "target": {
+            "contentDesc": "@tt_friends",
+            "className": "FrameLayout"
+          },
+          "visual": {
+            "className": "ImageView"
+          },
+          "label": "⊘"
+        }
+      ],
+      "screens": {
+        "tt_dm_chat": {
+          "note": "Chat screen: the message input bar (one of the few readable TikTok ids), or Phone + More buttons.",
+          "anyOf": [
+            {
+              "viewId": "com.zhiliaoapp.musically:id/ui_slot_input_layout_redesign"
+            },
+            {
+              "allOf": [
+                {
+                  "contentDesc": "@tt_phone"
+                },
+                {
+                  "contentDesc": "@tt_more"
+                }
+              ]
+            }
+          ]
+        },
+        "tt_profile": {
+          "note": "Profile tab (your videos, reposts, saved and liked): a video opened here is allowed until you swipe on (tt_allow_profile_videos).",
+          "contentDesc": "@tt_profile",
+          "className": "FrameLayout",
+          "selected": true
+        },
+        "tt_other": {
+          "note": "Any main tab: overwrites the DM origin so other videos don't inherit the exception.",
+          "anyOf": [
+            {
+              "contentDesc": "@tt_inbox",
+              "className": "FrameLayout",
+              "selected": true
+            },
+            {
+              "contentDesc": "@tt_home",
+              "className": "FrameLayout",
+              "selected": true
+            }
+          ]
+        }
+      }
+    },
+    "com.ss.android.ugc.trill": {
+      "label": "TikTok (Asia)",
+      "note": "TikTok obfuscates most ids; 'viewpager' (the vertical feed) is one of the few readable, stable ones. Verified on com.zhiliaoapp.musically 2026-11-17; trill shares the codebase (unverified). DMs/inbox have no feed pager, so they stay usable.",
+      "rules": [
+        {
+          "id": "tt_feed",
+          "feature": "tt_block_feed",
+          "note": "Feed blocked: switch to Inbox (fallback: back, e.g. from a DM video back to the chat). A video opened from a chat is allowed until you swipe to the next one.",
+          "match": {
+            "viewId": "com.ss.android.ugc.trill:id/viewpager",
+            "className": "ViewPager"
+          },
+          "confirmMs": 300,
+          "action": {
+            "type": "clickNode",
+            "target": {
+              "contentDesc": "@tt_inbox",
+              "className": "FrameLayout"
+            },
+            "fallback": "back"
+          },
+          "allowIf": [
+            {
+              "setting": "tt_allow_dm_videos",
+              "cameFrom": "tt_dm_chat",
+              "revokeOnScrollOf": "com.ss.android.ugc.trill:id/viewpager",
+              "withinMs": 600000
+            },
+            {
+              "setting": "tt_allow_profile_videos",
+              "cameFrom": "tt_profile",
+              "revokeOnScrollOf": "com.ss.android.ugc.trill:id/viewpager",
+              "withinMs": 600000
+            }
+          ]
+        }
+      ],
+      "scrollSources": [
+        "com.ss.android.ugc.trill:id/viewpager"
+      ],
+      "covers": [
+        {
+          "id": "tt_home_tab",
+          "feature": "tt_block_feed",
+          "note": "Tile over the Home (For You) tab icon.",
+          "target": {
+            "contentDesc": "@tt_home",
+            "className": "FrameLayout"
+          },
+          "visual": {
+            "className": "ImageView"
+          },
+          "label": "⊘"
+        },
+        {
+          "id": "tt_friends_tab",
+          "feature": "tt_block_feed",
+          "note": "Friends is also a video feed.",
+          "target": {
+            "contentDesc": "@tt_friends",
+            "className": "FrameLayout"
+          },
+          "visual": {
+            "className": "ImageView"
+          },
+          "label": "⊘"
+        }
+      ],
+      "screens": {
+        "tt_dm_chat": {
+          "note": "Chat screen: the message input bar (one of the few readable TikTok ids), or Phone + More buttons.",
+          "anyOf": [
+            {
+              "viewId": "com.ss.android.ugc.trill:id/ui_slot_input_layout_redesign"
+            },
+            {
+              "allOf": [
+                {
+                  "contentDesc": "@tt_phone"
+                },
+                {
+                  "contentDesc": "@tt_more"
+                }
+              ]
+            }
+          ]
+        },
+        "tt_profile": {
+          "note": "Profile tab (your videos, reposts, saved and liked): a video opened here is allowed until you swipe on (tt_allow_profile_videos).",
+          "contentDesc": "@tt_profile",
+          "className": "FrameLayout",
+          "selected": true
+        },
+        "tt_other": {
+          "note": "Any main tab: overwrites the DM origin so other videos don't inherit the exception.",
+          "anyOf": [
+            {
+              "contentDesc": "@tt_inbox",
+              "className": "FrameLayout",
+              "selected": true
+            },
+            {
+              "contentDesc": "@tt_home",
+              "className": "FrameLayout",
+              "selected": true
+            }
+          ]
+        }
+      }
+    },
+    "com.zhiliaoapp.musically.go": {
+      "label": "TikTok Lite",
+      "rules": []
+    },
+    "com.facebook.katana": {
+      "label": "Facebook",
+      "note": "Facebook strips view ids ('(name removed)'), so everything matches content descriptions. Tabs: 'Home, tab 1 of 6', 'Reels, tab 2 of 6[, N new]'. There is no Watch tab in this version. Verified 2026-11-17; feed-reel viewer verified 2026-11-22 (588.0.0.42.55).",
+      "rules": [
+        {
+          "id": "fb_reels_tab",
+          "feature": "fb_block_reels",
+          "match": {
+            "contentDescContains": "@fb_reels_tab",
+            "selected": true
+          },
+          "confirmMs": 400,
+          "action": {
+            "type": "clickNode",
+            "target": {
+              "contentDescContains": "@fb_home_tab"
+            },
+            "fallback": "back"
+          }
+        },
+        {
+          "id": "fb_reels_viewer",
+          "feature": "fb_block_reels",
+          "note": "Full-screen reel player (ImmersiveActivity) opened from the feed's Reels shelf, a profile or a link. Verified on 588.0.0.42.55 (2026-11-22): its comment bar has the internal, language-independent id FbShortsComposerAttachmentComponentSpec_*; fallback: the full-screen Button described 'Reel' next to the Save button.",
+          "match": {
+            "anyOf": [
+              {
+                "contentDescContains": "FbShortsComposerAttachmentComponentSpec"
+              },
+              {
+                "allOf": [
+                  {
+                    "contentDesc": "Reel",
+                    "className": "Button"
+                  },
+                  {
+                    "contentDescContains": "@fb_save"
+                  }
+                ]
+              }
+            ]
+          },
+          "confirmMs": 400,
+          "action": {
+            "type": "back"
+          }
+        }
+      ],
+      "covers": [
+        {
+          "id": "fb_reels_button",
+          "feature": "fb_block_reels",
+          "note": "Facebook's tabs have no icon child; draw the tile at half the tab size.",
+          "target": {
+            "contentDescContains": "@fb_reels_tab"
+          },
+          "visualScale": 0.5,
+          "label": "⊘"
+        }
+      ]
+    },
+    "com.android.chrome": {
+      "label": "Chrome",
+      "browser": true,
+      "urlBars": [
+        "com.android.chrome:id/url_bar"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "com.sec.android.app.sbrowser": {
+      "label": "Samsung Internet",
+      "browser": true,
+      "urlBars": [
+        "com.sec.android.app.sbrowser:id/location_bar_edit_text",
+        "com.sec.android.app.sbrowser:id/url_bar"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "com.microsoft.emmx": {
+      "label": "Edge",
+      "browser": true,
+      "urlBars": [
+        "com.microsoft.emmx:id/url_bar"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "org.mozilla.firefox": {
+      "label": "Firefox",
+      "browser": true,
+      "urlBars": [
+        "org.mozilla.firefox:id/mozac_browser_toolbar_url_view",
+        "org.mozilla.firefox:id/url_bar_title"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "com.brave.browser": {
+      "label": "Brave",
+      "browser": true,
+      "urlBars": [
+        "com.brave.browser:id/url_bar"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "com.opera.browser": {
+      "label": "Opera",
+      "browser": true,
+      "urlBars": [
+        "com.opera.browser:id/url_field"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "com.duckduckgo.mobile.android": {
+      "label": "DuckDuckGo",
+      "browser": true,
+      "urlBars": [
+        "com.duckduckgo.mobile.android:id/omnibarTextInput"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    },
+    "com.vivaldi.browser": {
+      "label": "Vivaldi",
+      "browser": true,
+      "urlBars": [
+        "com.vivaldi.browser:id/url_bar"
+      ],
+      "rules": [],
+      "note": "Text/URL filter only. URL bar ids from the browsers' public layouts; Samsung Internet's is unverified."
+    }
+  }
+}
