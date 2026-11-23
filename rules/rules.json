@@ -1,5 +1,5 @@
 {
-  "version": 19,
+  "version": 20,
   "labelsNote": "Translations of tab labels for apps without readable view ids (YouTube's bottom bar, TikTok, Facebook). English is verified on the device; other languages are best-effort and get fixed through rule updates. Order: en, el, es, de, fr, it, pt, nl, pl, tr, ru, uk, ro, ar, id, vi, ja, ko.",
   "labels": {
     "yt_home": ["Home", "Αρχική", "Inicio", "Startseite", "Accueil", "Início", "Strona główna", "Ana Sayfa", "Главная", "Головна", "Pagina principală", "الصفحة الرئيسية", "Beranda", "Trang chủ", "ホーム", "홈"],
